@@ -1,3 +1,4 @@
+
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 const WORDS = [
   'strawberry', 'orange', 'apple', 'banana', 'pineapple', 'kiwi',
@@ -79,6 +80,10 @@ const resetGame = () => {
   for (const el of $('#word-container').children()){
     el.remove();
   }
+
+  for (const el of $('#letter-buttons').children()){
+    el.remove();
+  }
 };
 
 
@@ -91,21 +96,25 @@ const resetGame = () => {
   createDivsForChars(word);
   generateLetterButtons();
 
-  $('button').on('click', (evt) => {
-    const clickedBtn = $(evt.target);
-    disableLetterButton(clickedBtn);
+  Array.from(document.querySelctorAll('button'))
+    .forEach((btn) => {
+      btn.addEventListener('click', (evt) => {
+        const clickedBtn = evt.target;
+        disableLetterButton(clickedBtn);
 
-    const letter = clickedBtn.html();
+        const letter = clickedBtn.innerHTML;
 
-    if (isLetterInWord(letter)) {
-      handleCorrectGuess(letter);
-    } else {
-      handleWrongGuess(letter);
-    }
-  });
+        if(isLetterInWord(letter)) {
+          handleCorrectGuess(letter);
+        } else{
+          handleWrongGuess(letter);
+        }
+      });
+    });
 
-  $('#play-again').on('click', () => {
-    resetGame();
-    startGame();
-  });
+  document.querySelctor('#play-again')
+    .addEventListener('click', () =>{
+      resetGame();
+      startGame();
+    }); 
 })();
