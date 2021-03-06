@@ -7,6 +7,7 @@ const WORDS = [
 
 
 let numWrong = 0;
+let numRight = 0;
 
 
 // Loop over the chars in `word` and create divs.
@@ -45,8 +46,16 @@ const isLetterInWord = (letter) => {
 
 // Called when `letter` is in word. Update contents of divs with `letter`.
 //
-const handleCorrectGuess = (letter) => {
+const handleCorrectGuess = (letter, word) => {
+  numRight +=1
+
   $(`div.${letter}`).html(letter);
+
+  if(numRight === `${word.length}`){
+    $('button').attr('disabled', true);
+
+    $('#play-again-win').css('display', '');
+  }
 };
 
 
@@ -76,6 +85,7 @@ const resetGame = () => {
   $('#shark-img img').attr('src', `/static/images/guess0.png`);
 
   $('#play-again').css('display', 'none');
+  $('#play-again-win').css('display', 'none');
 
   for (const el of $('#word-container').children()){
     el.remove();
@@ -117,4 +127,10 @@ const resetGame = () => {
       resetGame();
       startGame();
     }); 
+
+     document.querySelctor('#play-again-win')
+    .addEventListener('click', () =>{
+      resetGame();
+      startGame();
+    });
 })();
