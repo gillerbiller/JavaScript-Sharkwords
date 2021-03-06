@@ -8,6 +8,7 @@ const WORDS = [
 
 let numWrong = 0;
 let numRight = 0;
+console.log(numRight)
 
 
 // Loop over the chars in `word` and create divs.
@@ -47,15 +48,7 @@ const isLetterInWord = (letter) => {
 // Called when `letter` is in word. Update contents of divs with `letter`.
 //
 const handleCorrectGuess = (letter, word) => {
-  numRight +=1
-
   $(`div.${letter}`).html(letter);
-
-  if(numRight === `${word.length}`){
-    $('button').attr('disabled', true);
-
-    $('#play-again-win').css('display', '');
-  }
 };
 
 
@@ -127,10 +120,5 @@ const resetGame = () => {
       resetGame();
       startGame();
     }); 
-
-     document.querySelctor('#play-again-win')
-    .addEventListener('click', () =>{
-      resetGame();
-      startGame();
-    });
+    
 })();
